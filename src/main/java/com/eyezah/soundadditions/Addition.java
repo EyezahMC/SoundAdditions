@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Rabbit;
 
 import java.util.List;
+import java.util.OptionalInt;
 import java.util.Random;
 
 public class Addition {
@@ -17,6 +18,8 @@ public class Addition {
 		this.minDelay = minDelay;
 		this.bound = bound;
 	}
+
+	public OptionalInt scheduleTime = OptionalInt.empty();
 
 	private final List<String> sounds;
 	private final int yMax;

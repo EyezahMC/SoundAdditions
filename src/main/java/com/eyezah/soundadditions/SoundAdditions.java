@@ -18,12 +18,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalInt;
 import java.util.Random;
 
 public final class SoundAdditions extends JavaPlugin implements Listener {
 	private final Map<String, List<Addition>> sounds = new HashMap<>();
-	private final Object2IntMap<String> schedule = new Object2IntArrayMap<>();
-	private final Map<String, int[]> delays = new HashMap<>();
 
 	@Override
 	public void onEnable() {
@@ -66,20 +65,22 @@ public final class SoundAdditions extends JavaPlugin implements Listener {
 		for (World world : Bukkit.getWorlds()) {
 			String name = world.getName();
 
-			if (this.sounds.containsKey(name) && !this.schedule.containsKey(name) || this.schedule.getInt(name) - time <= 0) { // in case of overflow
-				// reschedule
-				int[] delayProperties = this.delays.get(name);
-				this.schedule.put(name, time + delayProperties[0] + RANDOM.nextInt(delayProperties[1]));
-
+			if (this.sounds.containsKey(name)) {
 				// sound stuff
 				List<Addition> additions = this.sounds.get(name);
 
 				for (Addition addition : additions) {
-					String sound = addition.getSound(RANDOM);
+					if (addition.scheduleTime.isEmpty() || time - addition.scheduleTime.getAsInt() >= 0) { // in case of overflow
+						// reschedule
+						addition.scheduleTime = OptionalInt.of(time + addition.minDelay + RANDOM.nextInt(addition.bound));
 
-					for (Player player : world.getPlayers()) {
-						if (addition.testPlayer(player)) {
-							player.playSound(player.getLocation(), sound, 1.0f, 1.0f);
+						// play sound
+						String sound = addition.getSound(RANDOM);
+
+						for (Player player : world.getPlayers()) {
+							if (addition.testPlayer(player)) {
+								player.playSound(player.getLocation(), sound, 1.0f, 1.0f);
+							}
 						}
 					}
 				}
