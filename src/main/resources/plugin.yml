@@ -1,0 +1,6 @@
+name: SoundAdditions
+version: ${project.version}
+main: com.eyezah.soundadditions.SoundAdditions
+api-version: 1.17
+authors: [ the_best_people ]
+description: yes

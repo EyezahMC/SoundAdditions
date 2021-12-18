@@ -1,0 +1,14 @@
+world:
+  normal:
+    sounds:
+      - "minecraft:block.anvil.use"
+      - "minecraft:block.bell.use"
+    delayMin: 2
+    delayMax: 8
+  aboveGround:
+    sounds:
+      - "block.ender_chest.open"
+    delayMin: 5
+    delayMax: 5
+    conditions:
+      yMax: 40
