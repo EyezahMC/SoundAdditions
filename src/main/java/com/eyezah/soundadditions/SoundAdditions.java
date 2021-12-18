@@ -38,8 +38,8 @@ public final class SoundAdditions extends JavaPlugin implements Listener {
 			for (String k_ : worldConfig.getKeys(false)) {
 				ConfigurationSection repeatingInstance = worldConfig.getConfigurationSection(k_);
 
-				int min = repeatingInstance.getInt("delayMin", 5);
-				int max = repeatingInstance.getInt("delayMax", 20);
+				int min = repeatingInstance.getInt("delayMin", 5) * 20;
+				int max = repeatingInstance.getInt("delayMax", 20) * 20;
 
 				// no
 				if (min > max) {
