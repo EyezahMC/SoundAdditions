@@ -1,6 +1,7 @@
 package com.eyezah.soundadditions;
 
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Rabbit;
 
@@ -10,6 +11,7 @@ import java.util.Random;
 public class Addition {
 	public Addition(List<String> sounds, ConfigurationSection conditions, int minDelay, int bound) {
 		this.sounds = sounds;
+		if (conditions == null) conditions = new MemoryConfiguration();
 		this.yMax = conditions.getInt("yMax", 100000000);
 		this.yMin = conditions.getInt("yMin", -100000000);
 		this.minDelay = minDelay;
