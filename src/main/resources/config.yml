@@ -5,6 +5,7 @@ world:
       - "minecraft:block.bell.use"
     delayMin: 2
     delayMax: 8
+    category: ambient
   underGround:
     sounds:
       - "block.ender_chest.open"
